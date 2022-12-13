@@ -1,0 +1,54 @@
+{
+  "name": "chronhub/store-connection",
+  "description": "stream",
+  "keywords": [
+    "stream"
+  ],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "steph bug",
+      "email": "chronhubgit@gmail.com"
+    }
+  ],
+  "require": {
+    "php": "^8.1",
+    "chronhub/contracts": "dev-main"
+  },
+  "require-dev": {
+    "chronhub/aggregate": "dev-main",
+    "chronhub/chronicler": "dev-main",
+    "chronhub/stream": "dev-main",
+    "chronhub/tracker": "dev-main",
+    "chronhub/message": "dev-main",
+    "illuminate/contracts": "9.x",
+    "laravel/pint": "^0.2",
+    "nunomaduro/larastan": "^2.1",
+    "orchestra/testbench": "7.*",
+    "jangregor/phpstan-prophecy": "dev-master",
+    "phpspec/prophecy-phpunit": "dev-master",
+    "phpunit/phpunit": "^9.5",
+    "roave/security-advisories": "dev-latest"
+  },
+  "autoload": {
+    "psr-4": {
+      "Chronhub\\Store\\Connection\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Chronhub\\Store\\Connection\\Tests\\": "tests"
+    }
+  },
+  "scripts": {
+    "test": "vendor/bin/phpunit",
+    "pint": "vendor/bin/pint"
+  },
+  "config": {
+    "sort-packages": true,
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
+    }
+  },
+  "minimum-stability": "dev"
+}

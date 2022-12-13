@@ -1,0 +1,16 @@
+includes:
+    - ./vendor/nunomaduro/larastan/extension.neon
+    - ./vendor/jangregor/phpstan-prophecy/extension.neon
+
+parameters:
+
+    paths:
+        - src
+        - tests
+
+    level: 5
+
+    ignoreErrors:
+        - '#Unsafe usage of new static#'
+
+    checkMissingIterableValueType: false
