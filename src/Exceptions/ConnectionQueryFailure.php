@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Chronhub\Store\Connection\Exceptions;
 
-use Chronhub\Chronicler\Exceptions\QueryFailure;
-use Illuminate\Database\QueryException;
+use Throwable;
 use PDOException;
+use Illuminate\Database\QueryException;
+use Chronhub\Chronicler\Exceptions\QueryFailure;
+use function sprintf;
 
 class ConnectionQueryFailure extends QueryFailure
 {
