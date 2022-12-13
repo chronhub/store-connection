@@ -23,12 +23,10 @@ class EventStoreDB extends AbstractEventStore
     {
         $this->isCreation = true;
 
-        $streamName = $stream->name();
-
         try {
-            $this->createEventStream($streamName);
+            $this->createEventStream($stream->name());
 
-            $this->upStreamTable($streamName);
+            $this->upStreamTable($stream->name());
         } finally {
             $this->isCreation = false;
         }
@@ -40,22 +38,20 @@ class EventStoreDB extends AbstractEventStore
     {
         $this->isCreation = false;
 
-        $serializedEvents = $this->serializeStreamEvents($stream->events());
+        $streamEvents = $this->serializeStreamEvents($stream->events());
 
-        if (count($serializedEvents) === 0) {
+        if (count($streamEvents) === 0) {
             return;
         }
 
-        $streamName = $stream->name();
-
-        $tableName = $this->streamPersistence->tableName($streamName);
+        $tableName = $this->streamPersistence->tableName($stream->name());
 
         if (! $this->writeLock->acquireLock($tableName)) {
             throw ConnectionConcurrencyException::failedToAcquireLock();
         }
 
         try {
-            $this->forWrite($streamName)->insert($serializedEvents);
+            $this->forWrite($stream->name())->insert($streamEvents);
         } finally {
             $this->writeLock->releaseLock($tableName);
         }
@@ -112,6 +108,7 @@ class EventStoreDB extends AbstractEventStore
 
     public function filterStreamNames(StreamName ...$streamNames): array
     {
+        // fixMe bring the streamFactory to generate new stream name
         return array_map(
             static fn (string $streamName): StreamName => new GenericStreamName($streamName),
             $this->eventStreamProvider->filterByStreams($streamNames)
