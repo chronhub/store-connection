@@ -6,7 +6,6 @@ namespace Chronhub\Store\Connection;
 
 use Generator;
 use Chronhub\Contracts\Stream\Stream;
-use Chronhub\Stream\GenericStreamName;
 use Illuminate\Database\QueryException;
 use Chronhub\Contracts\Stream\StreamName;
 use Chronhub\Contracts\Aggregate\Identity;
@@ -23,13 +22,11 @@ class EventStoreDB extends AbstractEventStore
     {
         $this->isCreation = true;
 
-        try {
-            $this->createEventStream($stream->name());
+        $this->createEventStream($stream->name());
 
-            $this->upStreamTable($stream->name());
-        } finally {
-            $this->isCreation = false;
-        }
+        $this->upStreamTable($stream->name());
+
+        $this->isCreation = false;
 
         $this->amend($stream);
     }
@@ -108,9 +105,8 @@ class EventStoreDB extends AbstractEventStore
 
     public function filterStreamNames(StreamName ...$streamNames): array
     {
-        // fixMe bring the streamFactory to generate new stream name
         return array_map(
-            static fn (string $streamName): StreamName => new GenericStreamName($streamName),
+            fn (string $streamName): StreamName => ($this->streamFactory)($streamName)->name(),
             $this->eventStreamProvider->filterByStreams($streamNames)
         );
     }
