@@ -10,6 +10,7 @@ use RuntimeException;
 use Chronhub\Testing\ProphecyTest;
 use Illuminate\Database\Connection;
 use Prophecy\Prophecy\ObjectProphecy;
+use Chronhub\Contracts\Stream\Factory;
 use Chronhub\Contracts\Stream\StreamCategory;
 use Chronhub\Contracts\Store\StreamPersistence;
 use Chronhub\Contracts\Store\WriteLockStrategy;
@@ -166,6 +167,7 @@ final class TransactionalEventStoreDBTest extends ProphecyTest
             $this->prophesize(StreamPersistence::class)->reveal(),
             $this->prophesize(EventLoaderConnection::class)->reveal(),
             $this->prophesize(EventStreamProvider::class)->reveal(),
+            $this->prophesize(Factory::class)->reveal(),
             $this->prophesize(StreamCategory::class)->reveal(),
             $this->prophesize(WriteLockStrategy::class)->reveal(),
         );
