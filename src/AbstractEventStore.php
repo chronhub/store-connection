@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Chronhub\Store\Connection;
 
-use Generator;
 use Illuminate\Database\Connection;
+use Chronhub\Contracts\Stream\Factory;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Database\QueryException;
 use Chronhub\Contracts\Stream\StreamName;
@@ -32,6 +32,7 @@ abstract class AbstractEventStore implements ChroniclerConnection
                                 protected readonly StreamPersistence $streamPersistence,
                                 protected readonly EventLoaderConnection $eventLoader,
                                 protected readonly EventStreamProvider $eventStreamProvider,
+                                protected readonly Factory $streamFactory,
                                 protected readonly StreamCategory $streamCategory,
                                 protected readonly WriteLockStrategy $writeLock)
     {
@@ -75,7 +76,7 @@ abstract class AbstractEventStore implements ChroniclerConnection
         return $this->connection->table($tableName);
     }
 
-    protected function serializeStreamEvents(iterable|Generator $streamEvents): array
+    protected function serializeStreamEvents(iterable $streamEvents): array
     {
         $events = [];
 
