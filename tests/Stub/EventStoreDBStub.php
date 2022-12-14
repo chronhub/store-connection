@@ -8,8 +8,13 @@ use Illuminate\Database\Query\Builder;
 use Chronhub\Contracts\Stream\StreamName;
 use Chronhub\Store\Connection\EventStoreDB;
 
-final class ReadEventStoreDBStub extends EventStoreDB
+final class EventStoreDBStub extends EventStoreDB
 {
+    public function getBuilderforWrite(StreamName $streamName): Builder
+    {
+        return $this->forWrite($streamName);
+    }
+
     public function getBuilderforRead(StreamName $streamName): Builder
     {
         return $this->forRead($streamName);
