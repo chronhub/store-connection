@@ -22,8 +22,7 @@ use function is_string;
 abstract class AbstractEventStore implements ChroniclerConnection
 {
     /**
-     * Determine if we create a new stream,
-     * or we update one
+     * Determine if we create a new stream, or we update one
      *
      * @var bool
      */
