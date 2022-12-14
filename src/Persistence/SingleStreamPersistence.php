@@ -61,6 +61,6 @@ final class SingleStreamPersistence implements StreamPersistence
 
     public function indexName(string $tableName): ?string
     {
-        return null;
+        return $this->indexQuery;
     }
 }

@@ -9,7 +9,7 @@ use Chronhub\Store\Connection\Tests\Double\SomeException;
 
 final class QueryExceptionStub extends QueryException
 {
-    public static function withCode(string $code)
+    public static function withCode(string $code): QueryExceptionStub
     {
         $previousException = new SomeException('an error occured');
         $previousException->setCodeAsString($code);
