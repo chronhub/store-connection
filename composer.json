@@ -18,10 +18,7 @@
   },
   "require-dev": {
     "chronhub/testing": "dev-main",
-    "chronhub/aggregate": "dev-main",
     "chronhub/chronicler": "dev-main",
-    "chronhub/tracker": "dev-main",
-    "chronhub/message": "dev-main",
     "illuminate/contracts": "9.x",
     "doctrine/dbal": "^2.13.3|^3.1.4",
     "laravel/pint": "^0.2",
