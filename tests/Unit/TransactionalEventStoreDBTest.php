@@ -7,12 +7,12 @@ namespace Chronhub\Store\Connection\Tests\Unit;
 use stdClass;
 use Generator;
 use RuntimeException;
+use Chronhub\Testing\ProphecyTest;
 use Illuminate\Database\Connection;
 use Prophecy\Prophecy\ObjectProphecy;
 use Chronhub\Contracts\Stream\StreamCategory;
 use Chronhub\Contracts\Store\StreamPersistence;
 use Chronhub\Contracts\Store\WriteLockStrategy;
-use Chronhub\Store\Connection\Tests\ProphecyTest;
 use Chronhub\Contracts\Store\EventLoaderConnection;
 use Chronhub\Contracts\Chronicler\EventStreamProvider;
 use Chronhub\Store\Connection\TransactionalEventStoreDB;
@@ -156,6 +156,7 @@ final class TransactionalEventStoreDBTest extends ProphecyTest
         yield [3.14];
         yield [new stdClass()];
         yield [true];
+        yield [false];
     }
 
     private function eventStore(): TransactionalEventStoreDB

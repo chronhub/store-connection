@@ -6,9 +6,9 @@ namespace Chronhub\Store\Connection\Tests\Unit;
 
 use Generator;
 use Chronhub\Testing\UnitTest;
-use Chronhub\Store\Connection\WriteLock\MysqlWriteLock;
+use Chronhub\Store\Connection\WriteLock\NoMysqlWriteLock;
 
-final class MysqlWriteLockTest extends UnitTest
+final class NoMysqlWriteLockTest extends UnitTest
 {
     /**
      * @test
@@ -16,7 +16,7 @@ final class MysqlWriteLockTest extends UnitTest
      */
     public function it_always_acquire_lock(string $tableName): void
     {
-        $writeLock = new MysqlWriteLock();
+        $writeLock = new NoMysqlWriteLock();
 
         $this->assertTrue($writeLock->acquireLock($tableName));
     }
@@ -27,7 +27,7 @@ final class MysqlWriteLockTest extends UnitTest
      */
     public function it_always_release_lock(string $tableName): void
     {
-        $writeLock = new MysqlWriteLock();
+        $writeLock = new NoMysqlWriteLock();
 
         $this->assertTrue($writeLock->releaseLock($tableName));
     }

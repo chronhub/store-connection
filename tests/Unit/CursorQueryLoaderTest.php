@@ -5,15 +5,15 @@ declare(strict_types=1);
 namespace Chronhub\Store\Connection\Tests\Unit;
 
 use stdClass;
+use Chronhub\Testing\ProphecyTest;
 use Prophecy\Prophecy\ObjectProphecy;
-use Chronhub\Stream\GenericStreamName;
+use Chronhub\Testing\Double\SomeEvent;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\LazyCollection;
 use Chronhub\Contracts\Stream\StreamName;
+use Chronhub\Testing\Stubs\StreamNameStub;
 use Chronhub\Store\Connection\Loader\EventLoader;
-use Chronhub\Store\Connection\Tests\ProphecyTest;
 use Chronhub\Chronicler\Exceptions\StreamNotFound;
-use Chronhub\Store\Connection\Tests\Double\SomeEvent;
 use Chronhub\Store\Connection\Loader\CursorQueryLoader;
 use Chronhub\Contracts\Support\Serializer\StreamEventConverter;
 
@@ -29,7 +29,7 @@ final class CursorQueryLoaderTest extends ProphecyTest
     {
         $this->builder = $this->prophesize(Builder::class);
         $this->eventConverter = $this->prophesize(StreamEventConverter::class);
-        $this->streamName = new GenericStreamName('operation');
+        $this->streamName = new StreamNameStub('operation');
     }
 
     /**

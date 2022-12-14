@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Chronhub\Store\Connection\Tests\Functional;
 
 use Generator;
+use Chronhub\Testing\OrchestraTest;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
-use Chronhub\Stream\GenericStreamName;
+use Chronhub\Testing\Double\SomeEvent;
 use Illuminate\Support\Facades\Schema;
-use Chronhub\Store\Connection\Tests\OrchestraTest;
-use Chronhub\Store\Connection\Tests\Double\SomeEvent;
+use Chronhub\Testing\Stubs\StreamNameStub;
 use Chronhub\Contracts\Support\Serializer\StreamEventConverter;
 use Chronhub\Store\Connection\Persistence\PerAggregateStreamPersistence;
 
@@ -37,7 +37,7 @@ final class PerAggregateStreamPersistenceTest extends OrchestraTest
 
         $streamPersistence = $this->newInstance();
 
-        $tableName = $streamPersistence->tableName(new GenericStreamName($streamName));
+        $tableName = $streamPersistence->tableName(new StreamNameStub($streamName));
 
         $this->assertEquals($expectedTableName, $tableName);
 
@@ -93,12 +93,10 @@ final class PerAggregateStreamPersistenceTest extends OrchestraTest
      */
     public function it_serialize_event(): void
     {
-        $isAutoIncremented = false;
-
         $event = SomeEvent::fromContent(['foo' => 'bar']);
         $convertedEvent = ['headers' => [], 'content' => ['foo' => 'bar']];
 
-        $this->eventConverter->toArray($event, $isAutoIncremented)->willReturn($convertedEvent)->shouldBeCalledOnce();
+        $this->eventConverter->toArray($event, false)->willReturn($convertedEvent)->shouldBeCalledOnce();
 
         $this->assertEquals($convertedEvent, $this->newInstance($this->eventConverter->reveal())->serializeEvent($event));
     }

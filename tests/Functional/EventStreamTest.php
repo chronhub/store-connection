@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Chronhub\Store\Connection\Tests\Functional;
 
+use Chronhub\Testing\OrchestraTest;
 use Illuminate\Database\Eloquent\Model;
 use Chronhub\Store\Connection\EventStream;
-use Chronhub\Store\Connection\Tests\OrchestraTest;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Chronhub\Contracts\Chronicler\EventStreamModel;
 use Chronhub\Contracts\Chronicler\EventStreamProvider;

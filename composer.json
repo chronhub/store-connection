@@ -17,9 +17,9 @@
     "chronhub/contracts": "dev-main"
   },
   "require-dev": {
+    "chronhub/testing": "dev-main",
     "chronhub/aggregate": "dev-main",
     "chronhub/chronicler": "dev-main",
-    "chronhub/stream": "dev-main",
     "chronhub/tracker": "dev-main",
     "chronhub/message": "dev-main",
     "illuminate/contracts": "9.x",

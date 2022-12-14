@@ -6,13 +6,14 @@ namespace Chronhub\Store\Connection\Tests\Unit;
 
 use Generator;
 use RuntimeException;
-use Chronhub\Stream\GenericStream;
+use Chronhub\Testing\ProphecyTest;
+use Chronhub\Contracts\Stream\Stream;
 use Prophecy\Prophecy\ObjectProphecy;
-use Chronhub\Stream\GenericStreamName;
+use Chronhub\Testing\Stubs\StreamStub;
 use Illuminate\Database\QueryException;
 use Chronhub\Contracts\Aggregate\Identity;
+use Chronhub\Testing\Stubs\StreamNameStub;
 use Chronhub\Contracts\Chronicler\QueryFilter;
-use Chronhub\Store\Connection\Tests\ProphecyTest;
 use Chronhub\Contracts\Chronicler\EventStreamProvider;
 use Chronhub\Contracts\Chronicler\ChroniclerConnection;
 use Chronhub\Store\Connection\Tests\Stub\ChroniclerDBStub;
@@ -21,9 +22,12 @@ final class AbstractChroniclerDBTest extends ProphecyTest
 {
     private ObjectProphecy|ChroniclerConnection $chronicler;
 
+    private Stream|StreamStub $stream;
+
     protected function setUp(): void
     {
         $this->chronicler = $this->prophesize(ChroniclerConnection::class);
+        $this->stream = new StreamStub(new StreamNameStub('customer'));
     }
 
     /**
@@ -31,13 +35,11 @@ final class AbstractChroniclerDBTest extends ProphecyTest
      */
     public function it_create_stream(): void
     {
-        $stream = new GenericStream(new GenericStreamName('foo'));
-
-        $this->chronicler->firstCommit($stream)->shouldBeCalledOnce();
+        $this->chronicler->firstCommit($this->stream)->shouldBeCalledOnce();
 
         $es = new ChroniclerDBStub($this->chronicler->reveal());
 
-        $es->firstCommit($stream);
+        $es->firstCommit($this->stream);
     }
 
     /**
@@ -45,13 +47,11 @@ final class AbstractChroniclerDBTest extends ProphecyTest
      */
     public function it_update_stream(): void
     {
-        $stream = new GenericStream(new GenericStreamName('foo'));
-
-        $this->chronicler->amend($stream)->shouldBeCalledOnce();
+        $this->chronicler->amend($this->stream)->shouldBeCalledOnce();
 
         $es = new ChroniclerDBStub($this->chronicler->reveal());
 
-        $es->amend($stream);
+        $es->amend($this->stream);
     }
 
     /**
@@ -59,13 +59,11 @@ final class AbstractChroniclerDBTest extends ProphecyTest
      */
     public function it_delete_stream(): void
     {
-        $stream = new GenericStream(new GenericStreamName('foo'));
-
-        $this->chronicler->delete($stream->name())->shouldBeCalledOnce();
+        $this->chronicler->delete($this->stream->name())->shouldBeCalledOnce();
 
         $es = new ChroniclerDBStub($this->chronicler->reveal());
 
-        $es->delete($stream->name());
+        $es->delete($this->stream->name());
     }
 
     /**
@@ -76,13 +74,11 @@ final class AbstractChroniclerDBTest extends ProphecyTest
     {
         $identity = $this->prophesize(Identity::class)->reveal();
 
-        $stream = new GenericStream(new GenericStreamName('foo'));
-
-        $this->chronicler->retrieveAll($stream->name(), $identity, $direction)->shouldBeCalledOnce();
+        $this->chronicler->retrieveAll($this->stream->name(), $identity, $direction)->shouldBeCalledOnce();
 
         $es = new ChroniclerDBStub($this->chronicler->reveal());
 
-        $es->retrieveAll($stream->name(), $identity, $direction);
+        $es->retrieveAll($this->stream->name(), $identity, $direction);
     }
 
     /**
@@ -92,13 +88,11 @@ final class AbstractChroniclerDBTest extends ProphecyTest
     {
         $queryFilter = $this->prophesize(QueryFilter::class)->reveal();
 
-        $stream = new GenericStream(new GenericStreamName('foo'));
-
-        $this->chronicler->retrieveFiltered($stream->name(), $queryFilter)->shouldBeCalledOnce();
+        $this->chronicler->retrieveFiltered($this->stream->name(), $queryFilter)->shouldBeCalledOnce();
 
         $es = new ChroniclerDBStub($this->chronicler->reveal());
 
-        $es->retrieveFiltered($stream->name(), $queryFilter);
+        $es->retrieveFiltered($this->stream->name(), $queryFilter);
     }
 
     /**
@@ -106,9 +100,9 @@ final class AbstractChroniclerDBTest extends ProphecyTest
      */
     public function it_filter_stream_names_ordered_by_name(): void
     {
-        $barStream = new GenericStreamName('bar');
-        $fooStream = new GenericStreamName('foo');
-        $zooStream = new GenericStreamName('zoo');
+        $barStream = new StreamNameStub('bar');
+        $fooStream = new StreamNameStub('foo');
+        $zooStream = new StreamNameStub('zoo');
 
         $this->chronicler->filterStreamNames($zooStream, $barStream, $fooStream)->willReturn([$fooStream, $zooStream])->shouldBeCalledOnce();
 
@@ -135,13 +129,11 @@ final class AbstractChroniclerDBTest extends ProphecyTest
      */
     public function it_check_stream_exists(bool $isStreamExists): void
     {
-        $streamName = new GenericStreamName('transaction');
-
-        $this->chronicler->hasStream($streamName)->willReturn($isStreamExists)->shouldBeCalledOnce();
+        $this->chronicler->hasStream($this->stream->name())->willReturn($isStreamExists)->shouldBeCalledOnce();
 
         $es = new ChroniclerDBStub($this->chronicler->reveal());
 
-        $this->assertEquals($isStreamExists, $es->hasStream($streamName));
+        $this->assertEquals($isStreamExists, $es->hasStream($this->stream->name()));
     }
 
     /**
@@ -188,13 +180,11 @@ final class AbstractChroniclerDBTest extends ProphecyTest
     {
         $exception = new QueryException('some sql', [], new RuntimeException('foo'));
 
-        $stream = new GenericStream(new GenericStreamName('foo'));
-
-        $this->chronicler->firstCommit($stream)->willThrow($exception)->shouldBeCalledOnce();
+        $this->chronicler->firstCommit($this->stream)->willThrow($exception)->shouldBeCalledOnce();
 
         $es = new ChroniclerDBStub($this->chronicler->reveal());
 
-        $es->firstCommit($stream);
+        $es->firstCommit($this->stream);
 
         $this->assertSame($exception, $es->getRaisedException());
     }
@@ -206,13 +196,11 @@ final class AbstractChroniclerDBTest extends ProphecyTest
     {
         $exception = new QueryException('some sql', [], new RuntimeException('foo'));
 
-        $stream = new GenericStream(new GenericStreamName('foo'));
-
-        $this->chronicler->amend($stream)->willThrow($exception)->shouldBeCalledOnce();
+        $this->chronicler->amend($this->stream)->willThrow($exception)->shouldBeCalledOnce();
 
         $es = new ChroniclerDBStub($this->chronicler->reveal());
 
-        $es->amend($stream);
+        $es->amend($this->stream);
 
         $this->assertSame($exception, $es->getRaisedException());
     }

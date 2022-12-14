@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Chronhub\Store\Connection\Tests\Unit;
 
 use Generator;
+use Chronhub\Testing\ProphecyTest;
 use Illuminate\Database\ConnectionInterface;
-use Chronhub\Store\Connection\Tests\ProphecyTest;
 use Chronhub\Store\Connection\WriteLock\PgsqlWriteLock;
 
 final class PgsqlWriteLockTest extends ProphecyTest

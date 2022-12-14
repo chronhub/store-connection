@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Chronhub\Store\Connection\Tests\Functional;
 
 use Generator;
+use Chronhub\Testing\OrchestraTest;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
-use Chronhub\Stream\GenericStreamName;
+use Chronhub\Testing\Double\SomeEvent;
 use Illuminate\Support\Facades\Schema;
-use Chronhub\Store\Connection\Tests\OrchestraTest;
-use Chronhub\Store\Connection\Tests\Double\SomeEvent;
+use Chronhub\Testing\Stubs\StreamNameStub;
 use Chronhub\Contracts\Support\Serializer\StreamEventConverter;
 use Chronhub\Store\Connection\Persistence\SingleStreamPersistence;
 
@@ -37,7 +37,7 @@ final class SingleStreamPersistenceTest extends OrchestraTest
 
         $streamPersistence = $this->newInstance();
 
-        $tableName = $streamPersistence->tableName(new GenericStreamName($streamName));
+        $tableName = $streamPersistence->tableName(new StreamNameStub($streamName));
 
         $this->assertEquals($expectedTableName, $tableName);
         $this->assertEquals('ix_query_aggregate', $streamPersistence->indexName($tableName));
@@ -50,7 +50,7 @@ final class SingleStreamPersistenceTest extends OrchestraTest
     {
         $streamPersistence = $this->newInstance();
 
-        $tableName = $streamPersistence->tableName(new GenericStreamName('foo'));
+        $tableName = $streamPersistence->tableName(new StreamNameStub('foo'));
 
         $this->assertEquals('ix_query_aggregate', $streamPersistence->indexName($tableName));
     }
@@ -104,11 +104,10 @@ final class SingleStreamPersistenceTest extends OrchestraTest
      */
     public function it_serialize_event(): void
     {
-        $isAutoIncremented = true;
         $event = SomeEvent::fromContent(['foo' => 'bar']);
         $convertedEvent = ['headers' => [], 'content' => ['foo' => 'bar']];
 
-        $this->eventConverter->toArray($event, $isAutoIncremented)->willReturn($convertedEvent)->shouldBeCalledOnce();
+        $this->eventConverter->toArray($event, true)->willReturn($convertedEvent)->shouldBeCalledOnce();
 
         $this->assertEquals($convertedEvent, $this->newInstance($this->eventConverter->reveal())->serializeEvent($event));
     }

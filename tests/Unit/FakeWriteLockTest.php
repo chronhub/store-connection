@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Chronhub\Store\Connection\Tests\Unit;
 
 use Generator;
-use Chronhub\Store\Connection\Tests\UnitTest;
+use Chronhub\Testing\UnitTest;
 use Chronhub\Store\Connection\WriteLock\FakeWriteLock;
 
 final class FakeWriteLockTest extends UnitTest

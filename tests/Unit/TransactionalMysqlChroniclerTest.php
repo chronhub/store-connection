@@ -13,10 +13,11 @@ use Chronhub\Testing\ProphecyTest;
 use Prophecy\Prophecy\ObjectProphecy;
 use Chronhub\Chronicler\Exceptions\TransactionNotStarted;
 use Chronhub\Contracts\Chronicler\TransactionalChronicler;
+use Chronhub\Store\Connection\TransactionalMysqlChronicler;
 use Chronhub\Store\Connection\TransactionalPgsqlChronicler;
 use Chronhub\Chronicler\Exceptions\TransactionAlreadyStarted;
 
-final class TransactionalPgsqlChroniclerTest extends ProphecyTest
+final class TransactionalMysqlChroniclerTest extends ProphecyTest
 {
     private TransactionalChronicler|ObjectProphecy $chronicler;
 
@@ -32,7 +33,7 @@ final class TransactionalPgsqlChroniclerTest extends ProphecyTest
     {
         $this->chronicler->beginTransaction()->shouldBeCalledOnce();
 
-        $decorator = new TransactionalPgsqlChronicler($this->chronicler->reveal());
+        $decorator = new TransactionalMysqlChronicler($this->chronicler->reveal());
 
         $decorator->beginTransaction();
     }
@@ -47,7 +48,7 @@ final class TransactionalPgsqlChroniclerTest extends ProphecyTest
 
         $this->chronicler->beginTransaction()->willThrow($exception)->shouldBeCalledOnce();
 
-        $decorator = new TransactionalPgsqlChronicler($this->chronicler->reveal());
+        $decorator = new TransactionalMysqlChronicler($this->chronicler->reveal());
 
         $decorator->beginTransaction();
     }
@@ -59,7 +60,7 @@ final class TransactionalPgsqlChroniclerTest extends ProphecyTest
     {
         $this->chronicler->commitTransaction()->shouldBeCalledOnce();
 
-        $decorator = new TransactionalPgsqlChronicler($this->chronicler->reveal());
+        $decorator = new TransactionalMysqlChronicler($this->chronicler->reveal());
 
         $decorator->commitTransaction();
     }
@@ -74,7 +75,7 @@ final class TransactionalPgsqlChroniclerTest extends ProphecyTest
 
         $this->chronicler->commitTransaction()->willThrow($exception)->shouldBeCalledOnce();
 
-        $decorator = new TransactionalPgsqlChronicler($this->chronicler->reveal());
+        $decorator = new TransactionalMysqlChronicler($this->chronicler->reveal());
 
         $decorator->commitTransaction();
     }
@@ -86,7 +87,7 @@ final class TransactionalPgsqlChroniclerTest extends ProphecyTest
     {
         $this->chronicler->rollbackTransaction()->shouldBeCalledOnce();
 
-        $decorator = new TransactionalPgsqlChronicler($this->chronicler->reveal());
+        $decorator = new TransactionalMysqlChronicler($this->chronicler->reveal());
 
         $decorator->rollbackTransaction();
     }
@@ -101,7 +102,7 @@ final class TransactionalPgsqlChroniclerTest extends ProphecyTest
 
         $this->chronicler->rollbackTransaction()->willThrow($exception)->shouldBeCalledOnce();
 
-        $decorator = new TransactionalPgsqlChronicler($this->chronicler->reveal());
+        $decorator = new TransactionalMysqlChronicler($this->chronicler->reveal());
 
         $decorator->rollbackTransaction();
     }
@@ -114,7 +115,7 @@ final class TransactionalPgsqlChroniclerTest extends ProphecyTest
     {
         $this->chronicler->inTransaction()->willReturn($inTransaction)->shouldBeCalledOnce();
 
-        $decorator = new TransactionalPgsqlChronicler($this->chronicler->reveal());
+        $decorator = new TransactionalMysqlChronicler($this->chronicler->reveal());
 
         $this->assertEquals($inTransaction, $decorator->inTransaction());
     }
@@ -130,7 +131,7 @@ final class TransactionalPgsqlChroniclerTest extends ProphecyTest
         /** @phpstan-ignore-next-line */
         $this->chronicler->transactional($callback)->willReturn($value)->shouldBeCalledOnce();
 
-        $decorator = new TransactionalPgsqlChronicler($this->chronicler->reveal());
+        $decorator = new TransactionalMysqlChronicler($this->chronicler->reveal());
 
         $this->assertEquals($value, $decorator->transactional($callback));
     }
