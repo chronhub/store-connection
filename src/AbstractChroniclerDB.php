@@ -91,16 +91,15 @@ abstract class AbstractChroniclerDB implements ChroniclerConnection, ChroniclerD
 
     /**
      * Handle query exception depends on connection driver
-     * and if it is during creation of stream
      *
      * @param  QueryException  $exception
      * @param  StreamName  $streamName
      * @return void
      *
-     * @throws StreamNotFound
-     * @throws StreamAlreadyExists
-     * @throws ConnectionQueryFailure
-     * @throws ConnectionConcurrencyException
+     * @throws StreamNotFound when stream not found on update
+     * @throws StreamAlreadyExists when stream already exist on creation
+     * @throws ConnectionConcurrencyException when stream already exist on update
+     * @throws ConnectionQueryFailure when any other query exception is raised
      */
     abstract protected function handleException(QueryException $exception, StreamName $streamName): void;
 }
