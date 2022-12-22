@@ -9,14 +9,14 @@ use Exception;
 use Generator;
 use RuntimeException;
 use InvalidArgumentException;
-use Chronhub\Testing\ProphecyTest;
 use Prophecy\Prophecy\ObjectProphecy;
+use Chronhub\Testing\ProphecyTestCase;
 use Chronhub\Chronicler\Exceptions\TransactionNotStarted;
 use Chronhub\Contracts\Chronicler\TransactionalChronicler;
 use Chronhub\Store\Connection\TransactionalPgsqlChronicler;
 use Chronhub\Chronicler\Exceptions\TransactionAlreadyStarted;
 
-final class TransactionalPgsqlChroniclerTest extends ProphecyTest
+final class TransactionalPgsqlChroniclerTest extends ProphecyTestCase
 {
     private TransactionalChronicler|ObjectProphecy $chronicler;
 

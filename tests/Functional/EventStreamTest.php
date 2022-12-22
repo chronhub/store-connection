@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Chronhub\Store\Connection\Tests\Functional;
 
-use Chronhub\Testing\OrchestraTest;
+use Chronhub\Testing\OrchestraTestCase;
 use Illuminate\Database\Eloquent\Model;
 use Chronhub\Store\Connection\EventStream;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Chronhub\Contracts\Chronicler\EventStreamModel;
 use Chronhub\Contracts\Chronicler\EventStreamProvider;
 
-final class EventStreamTest extends OrchestraTest
+final class EventStreamTest extends OrchestraTestCase
 {
     use RefreshDatabase;
 

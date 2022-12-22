@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace Chronhub\Store\Connection\Tests\Unit;
 
 use Generator;
-use Chronhub\Testing\ProphecyTest;
+use Chronhub\Testing\ProphecyTestCase;
 use Illuminate\Database\ConnectionInterface;
 use Chronhub\Store\Connection\WriteLock\PgsqlWriteLock;
 
-final class PgsqlWriteLockTest extends ProphecyTest
+final class PgsqlWriteLockTest extends ProphecyTestCase
 {
     /**
      * @test

@@ -5,19 +5,19 @@ declare(strict_types=1);
 namespace Chronhub\Store\Connection\Tests\Unit;
 
 use stdClass;
-use Chronhub\Testing\ProphecyTest;
 use Prophecy\Prophecy\ObjectProphecy;
-use Chronhub\Testing\Double\SomeEvent;
+use Chronhub\Testing\ProphecyTestCase;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\LazyCollection;
 use Chronhub\Contracts\Stream\StreamName;
 use Chronhub\Testing\Stubs\StreamNameStub;
+use Chronhub\Testing\Double\Message\SomeEvent;
 use Chronhub\Store\Connection\Loader\EventLoader;
 use Chronhub\Chronicler\Exceptions\StreamNotFound;
 use Chronhub\Store\Connection\Loader\CursorQueryLoader;
 use Chronhub\Contracts\Support\Serializer\StreamEventConverter;
 
-final class CursorQueryLoaderTest extends ProphecyTest
+final class CursorQueryLoaderTest extends ProphecyTestCase
 {
     private Builder|ObjectProphecy $builder;
 

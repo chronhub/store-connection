@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Chronhub\Store\Connection\Tests\Unit;
 
 use Generator;
-use Chronhub\Testing\ProphecyTest;
 use Chronhub\Contracts\Stream\Stream;
 use Prophecy\Prophecy\ObjectProphecy;
+use Chronhub\Testing\ProphecyTestCase;
 use Chronhub\Testing\Stubs\StreamStub;
 use Chronhub\Testing\Stubs\StreamNameStub;
 use Chronhub\Store\Connection\PgsqlChronicler;
@@ -18,7 +18,7 @@ use Chronhub\Contracts\Chronicler\ChroniclerConnection;
 use Chronhub\Store\Connection\Exceptions\ConnectionQueryFailure;
 use Chronhub\Store\Connection\Exceptions\ConnectionConcurrencyException;
 
-final class PgsqlChroniclerTest extends ProphecyTest
+final class PgsqlChroniclerTest extends ProphecyTestCase
 {
     private ObjectProphecy|ChroniclerConnection $chronicler;
 

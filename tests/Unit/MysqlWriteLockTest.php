@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace Chronhub\Store\Connection\Tests\Unit;
 
 use Generator;
-use Chronhub\Testing\UnitTest;
+use Chronhub\Testing\UnitTestCase;
 use Chronhub\Store\Connection\WriteLock\MysqlWriteLock;
 
-final class MysqlWriteLockTest extends UnitTest
+final class MysqlWriteLockTest extends UnitTestCase
 {
     /**
      * @test

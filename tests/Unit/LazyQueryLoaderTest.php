@@ -5,20 +5,20 @@ declare(strict_types=1);
 namespace Chronhub\Store\Connection\Tests\Unit;
 
 use stdClass;
-use Chronhub\Testing\ProphecyTest;
 use Prophecy\Prophecy\ObjectProphecy;
-use Chronhub\Testing\Double\SomeEvent;
+use Chronhub\Testing\ProphecyTestCase;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\LazyCollection;
 use Chronhub\Contracts\Stream\StreamName;
 use Chronhub\Testing\Stubs\StreamNameStub;
+use Chronhub\Testing\Double\Message\SomeEvent;
 use Chronhub\Store\Connection\Loader\EventLoader;
 use Chronhub\Chronicler\Exceptions\StreamNotFound;
 use Chronhub\Store\Connection\Loader\LazyQueryLoader;
 use Chronhub\Contracts\Support\Serializer\StreamEventConverter;
 use function iterator_to_array;
 
-final class LazyQueryLoaderTest extends ProphecyTest
+final class LazyQueryLoaderTest extends ProphecyTestCase
 {
     private Builder|ObjectProphecy $builder;
 

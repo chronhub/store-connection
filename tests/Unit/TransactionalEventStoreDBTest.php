@@ -7,10 +7,10 @@ namespace Chronhub\Store\Connection\Tests\Unit;
 use stdClass;
 use Generator;
 use RuntimeException;
-use Chronhub\Testing\ProphecyTest;
 use Illuminate\Database\Connection;
 use Prophecy\Prophecy\ObjectProphecy;
 use Chronhub\Contracts\Stream\Factory;
+use Chronhub\Testing\ProphecyTestCase;
 use Chronhub\Contracts\Stream\StreamCategory;
 use Chronhub\Contracts\Store\StreamPersistence;
 use Chronhub\Contracts\Store\WriteLockStrategy;
@@ -20,7 +20,7 @@ use Chronhub\Store\Connection\TransactionalEventStoreDB;
 use Chronhub\Chronicler\Exceptions\TransactionNotStarted;
 use Chronhub\Chronicler\Exceptions\TransactionAlreadyStarted;
 
-final class TransactionalEventStoreDBTest extends ProphecyTest
+final class TransactionalEventStoreDBTest extends ProphecyTestCase
 {
     private Connection|ObjectProphecy $connection;
 

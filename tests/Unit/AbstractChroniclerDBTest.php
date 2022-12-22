@@ -6,9 +6,9 @@ namespace Chronhub\Store\Connection\Tests\Unit;
 
 use Generator;
 use RuntimeException;
-use Chronhub\Testing\ProphecyTest;
 use Chronhub\Contracts\Stream\Stream;
 use Prophecy\Prophecy\ObjectProphecy;
+use Chronhub\Testing\ProphecyTestCase;
 use Chronhub\Testing\Stubs\StreamStub;
 use Illuminate\Database\QueryException;
 use Chronhub\Contracts\Aggregate\Identity;
@@ -18,7 +18,7 @@ use Chronhub\Contracts\Chronicler\EventStreamProvider;
 use Chronhub\Contracts\Chronicler\ChroniclerConnection;
 use Chronhub\Store\Connection\Tests\Stub\ChroniclerDBStub;
 
-final class AbstractChroniclerDBTest extends ProphecyTest
+final class AbstractChroniclerDBTest extends ProphecyTestCase
 {
     private ObjectProphecy|ChroniclerConnection $chronicler;
 

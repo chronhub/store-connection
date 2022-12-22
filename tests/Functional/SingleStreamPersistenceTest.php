@@ -5,16 +5,16 @@ declare(strict_types=1);
 namespace Chronhub\Store\Connection\Tests\Functional;
 
 use Generator;
-use Chronhub\Testing\OrchestraTest;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
-use Chronhub\Testing\Double\SomeEvent;
 use Illuminate\Support\Facades\Schema;
+use Chronhub\Testing\OrchestraTestCase;
 use Chronhub\Testing\Stubs\StreamNameStub;
+use Chronhub\Testing\Double\Message\SomeEvent;
 use Chronhub\Contracts\Support\Serializer\StreamEventConverter;
 use Chronhub\Store\Connection\Persistence\SingleStreamPersistence;
 
-final class SingleStreamPersistenceTest extends OrchestraTest
+final class SingleStreamPersistenceTest extends OrchestraTestCase
 {
     use ProphecyTrait;
 

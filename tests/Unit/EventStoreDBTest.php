@@ -5,23 +5,23 @@ declare(strict_types=1);
 namespace Chronhub\Store\Connection\Tests\Unit;
 
 use Generator;
-use Chronhub\Testing\ProphecyTest;
 use Illuminate\Database\Connection;
 use Prophecy\Prophecy\ObjectProphecy;
 use Chronhub\Contracts\Message\Header;
 use Chronhub\Contracts\Stream\Factory;
-use Chronhub\Testing\Double\SomeEvent;
+use Chronhub\Testing\ProphecyTestCase;
 use Chronhub\Contracts\Stream\StreamName;
 use Chronhub\Testing\Stubs\StreamNameStub;
 use Illuminate\Database\ConnectionInterface;
 use Chronhub\Contracts\Stream\StreamCategory;
+use Chronhub\Testing\Double\Message\SomeEvent;
 use Chronhub\Contracts\Store\StreamPersistence;
 use Chronhub\Contracts\Store\WriteLockStrategy;
 use Chronhub\Contracts\Store\EventLoaderConnection;
 use Chronhub\Contracts\Chronicler\EventStreamProvider;
 use Chronhub\Store\Connection\Tests\Stub\EventStoreDBStub;
 
-abstract class EventStoreDBTest extends ProphecyTest
+abstract class EventStoreDBTest extends ProphecyTestCase
 {
     /**
      * @test
