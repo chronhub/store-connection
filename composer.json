@@ -1,8 +1,8 @@
 {
   "name": "chronhub/store-connection",
-  "description": "stream",
+  "description": "event store with laravel connection",
   "keywords": [
-    "stream"
+    "connection","laravel","event store","stream"
   ],
   "license": "MIT",
   "authors": [
