@@ -14,12 +14,12 @@
   "require": {
     "php": "^8.1",
     "ext-pdo": "*",
-    "chronhub/contracts": "dev-main"
+    "chronhub/contracts": "dev-main",
+    "chronhub/chronicler": "dev-main",
+    "illuminate/contracts": "9.x"
   },
   "require-dev": {
     "chronhub/testing": "dev-main",
-    "chronhub/chronicler": "dev-main",
-    "illuminate/contracts": "9.x",
     "doctrine/dbal": "^2.13.3|^3.1.4",
     "laravel/pint": "^0.2",
     "nunomaduro/larastan": "^2.1",
