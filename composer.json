@@ -49,5 +49,10 @@
       "dealerdirect/phpcodesniffer-composer-installer": true
     }
   },
+  "laravel": {
+    "dont-discover": [
+      "Chronhub/Store/Connection/StoreConnectionServiceProvider"
+    ]
+  },
   "minimum-stability": "dev"
 }
